@@ -45,6 +45,8 @@ macro(mbgl_platform_core)
         PRIVATE platform/default/headless_backend.cpp
         PRIVATE platform/default/headless_display.cpp
         PRIVATE platform/default/offscreen_view.cpp
+        PRIVATE platform/default/headless_view.cpp
+        PRIVATE platform/default/headless_view_egl.cpp
 
         # Thread pool
         PRIVATE platform/default/thread_pool.cpp
@@ -64,7 +66,8 @@ macro(mbgl_platform_core)
         PUBLIC -lz
         PUBLIC -lcurl
         PUBLIC -lGL
-        PUBLIC -lX11
+        PUBLIC -lEGL
+        PUBLIC -lgbm
     )
 endmacro()
 
