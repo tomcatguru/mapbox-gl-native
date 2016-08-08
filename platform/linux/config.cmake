@@ -45,7 +45,6 @@ macro(mbgl_platform_core)
         PRIVATE platform/default/headless_backend.cpp
         PRIVATE platform/default/headless_display.cpp
         PRIVATE platform/default/offscreen_view.cpp
-        PRIVATE platform/default/headless_view.cpp
         PRIVATE platform/default/headless_view_egl.cpp
 
         # Thread pool

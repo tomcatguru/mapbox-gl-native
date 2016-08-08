@@ -26,10 +26,6 @@ public:
     EGLDisplay dpy = 0;
     EGLConfig config = 0;
 #endif
-#if MBGL_USE_GLX
-    Display *xDisplay = nullptr;
-    GLXFBConfig *fbConfigs = nullptr;
-#endif
 };
 
 } // namespace mbgl
