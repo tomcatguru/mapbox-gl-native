@@ -201,8 +201,9 @@ public final class CameraPosition implements Parcelable {
         public Builder(double[] nativeCameraValues) {
             super();
             if (nativeCameraValues != null && nativeCameraValues.length == 5) {
-                target(new LatLng(nativeCameraValues[0], nativeCameraValues[1]));
-                bearing(nativeCameraValues[2]);
+                // rounding latlng from core to 10 decimals, see #6800
+                target(new LatLng(MathUtils.round(nativeCameraValues[0], 10), MathUtils.round(nativeCameraValues[1], 10)));
+                bearing(MathUtils.round(nativeCameraValues[2],10));
                 tilt(nativeCameraValues[3]);
                 zoom((float) nativeCameraValues[4]);
             }

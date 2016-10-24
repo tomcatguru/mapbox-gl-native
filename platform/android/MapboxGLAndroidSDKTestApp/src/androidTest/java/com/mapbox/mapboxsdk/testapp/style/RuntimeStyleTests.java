@@ -14,6 +14,7 @@ import com.mapbox.mapboxsdk.style.sources.VectorSource;
 import com.mapbox.mapboxsdk.testapp.R;
 import com.mapbox.mapboxsdk.testapp.activity.style.RuntimeStyleTestActivity;
 import com.mapbox.mapboxsdk.testapp.utils.OnMapReadyIdlingResource;
+import com.mapbox.mapboxsdk.testapp.utils.ViewUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * Basic smoke tests for Layer and Source
  */
 @RunWith(AndroidJUnit4.class)
-public class RuntimeStyleTests extends BaseStyleTest {
+public class RuntimeStyleTests {
 
     @Rule
     public final ActivityTestRule<RuntimeStyleTestActivity> rule = new ActivityTestRule<>(RuntimeStyleTestActivity.class);
@@ -50,7 +51,7 @@ public class RuntimeStyleTests extends BaseStyleTest {
     @Test
     @Ignore
     public void testGetAddRemoveLayer() {
-        checkViewIsDisplayed(R.id.mapView);
+        ViewUtils.checkViewIsDisplayed(R.id.mapView);
 
         MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -82,7 +83,7 @@ public class RuntimeStyleTests extends BaseStyleTest {
 
     @Test
     public void testAddRemoveSource() {
-        checkViewIsDisplayed(R.id.mapView);
+        ViewUtils.checkViewIsDisplayed(R.id.mapView);
 
         MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
         mapboxMap.addSource(new VectorSource("my-source", "mapbox://mapbox.mapbox-terrain-v2"));
