@@ -85,8 +85,9 @@ constexpr bool operator==(const ProjectedMeters& a, const ProjectedMeters& b) {
 class LatLngBounds {
 public:
     // Return a bounds covering the entire (unwrapped) world.
-    static LatLngBounds world() {
-        return LatLngBounds({-90, -180}, {90, 180});
+    static LatLngBounds& world() {
+        static LatLngBounds world {{-90, -180}, {90, 180}};
+        return world;
     }
 
     // Return the bounds consisting of the single point.
