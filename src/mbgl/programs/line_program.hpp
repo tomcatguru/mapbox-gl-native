@@ -6,15 +6,12 @@
 #include <mbgl/shader/line.hpp>
 #include <mbgl/shader/line_pattern.hpp>
 #include <mbgl/shader/line_sdf.hpp>
+#include <mbgl/style/layers/line_layer_properties.hpp>
 #include <mbgl/util/geometry.hpp>
 
 #include <cmath>
 
 namespace mbgl {
-
-namespace style {
-class LinePaintProperties;
-} // namespace style
 
 class RenderTile;
 class TransformState;
@@ -105,7 +102,7 @@ class LineProgram : public Program<
 public:
     using Program::Program;
 
-    static UniformValues uniformValues(const style::LinePaintProperties&,
+    static UniformValues uniformValues(const style::LinePaintProperties::Evaluated&,
                                        float pixelRatio,
                                        const RenderTile&,
                                        const TransformState&);
@@ -137,7 +134,7 @@ class LinePatternProgram : public Program<
 public:
     using Program::Program;
 
-    static UniformValues uniformValues(const style::LinePaintProperties&,
+    static UniformValues uniformValues(const style::LinePaintProperties::Evaluated&,
                                        float pixelRatio,
                                        const RenderTile&,
                                        const TransformState&,
@@ -171,7 +168,7 @@ class LineSDFProgram : public Program<
 public:
     using Program::Program;
 
-    static UniformValues uniformValues(const style::LinePaintProperties&,
+    static UniformValues uniformValues(const style::LinePaintProperties::Evaluated&,
                                        float pixelRatio,
                                        const RenderTile&,
                                        const TransformState&,

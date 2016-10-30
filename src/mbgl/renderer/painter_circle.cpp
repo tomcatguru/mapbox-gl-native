@@ -20,7 +20,7 @@ void Painter::renderCircle(PaintParameters& parameters,
         return;
     }
 
-    const CirclePaintProperties& properties = layer.impl->paint;
+    const CirclePaintProperties::Evaluated& properties = layer.impl->paint.evaluated;
 
     context.draw({
         depthModeForSublayer(0, gl::DepthMode::ReadOnly),
@@ -30,15 +30,15 @@ void Painter::renderCircle(PaintParameters& parameters,
         colorModeForRenderPass(),
         parameters.programs.circle,
         CircleProgram::UniformValues(
-            tile.translatedMatrix(properties.circleTranslate.value,
-                                  properties.circleTranslateAnchor.value,
+            tile.translatedMatrix(properties.get<CircleTranslate>(),
+                                  properties.get<CircleTranslateAnchor>(),
                                   state),
-            properties.circleOpacity.value,
-            properties.circleColor.value,
-            properties.circleRadius.value,
-            properties.circleBlur.value,
-            properties.circlePitchScale.value == CirclePitchScaleType::Map,
-            properties.circlePitchScale.value == CirclePitchScaleType::Map
+            properties.get<CircleOpacity>(),
+            properties.get<CircleColor>(),
+            properties.get<CircleRadius>(),
+            properties.get<CircleBlur>(),
+            properties.get<CirclePitchScale>() == CirclePitchScaleType::Map,
+            properties.get<CirclePitchScale>() == CirclePitchScaleType::Map
                 ? std::array<float, 2> {{
                     pixelsToGLUnits[0] * state.getAltitude(),
                     pixelsToGLUnits[1] * state.getAltitude()
