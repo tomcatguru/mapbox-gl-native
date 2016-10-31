@@ -5,7 +5,6 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 import android.view.View;
 
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -24,7 +23,6 @@ import com.mapbox.mapboxsdk.testapp.utils.ViewUtils;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,10 +30,9 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class CameraMoveTest {
-    
+public class CameraAnimateTest {
+
     @Rule
     public final ActivityTestRule<CameraTestActivity> rule = new ActivityTestRule<>(CameraTestActivity.class);
 
@@ -48,7 +45,7 @@ public class CameraMoveTest {
     }
 
     @Test
-    public void testMoveToCameraPositionTarget() {
+    public void testAnimateToCameraPositionTarget() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -60,27 +57,27 @@ public class CameraMoveTest {
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Default camera position should match default", cameraPosition, initialPosition);
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.newLatLng(moveTarget)));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newLatLng(moveTarget)));
         cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera position target should match", cameraPosition.target, moveTarget);
     }
 
     @Test
-    public void testMoveToCameraPositionTargetZoom() {
+    public void testAnimateToCameraPositionTargetZoom() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
         final float moveZoom = 15.5f;
         final LatLng moveTarget = new LatLng(1.0000000001, 1.0000000003);
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.newLatLngZoom(moveTarget, moveZoom)));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newLatLngZoom(moveTarget, moveZoom)));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera position target should match", cameraPosition.target, moveTarget);
         assertEquals("Moved zoom should match", cameraPosition.zoom, moveZoom, 0.0f);
     }
 
     @Test
-    public void testMoveToCameraPosition() {
+    public void testAnimateToCameraPosition() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -90,7 +87,7 @@ public class CameraMoveTest {
         final float moveBearing = 12.5f;
 
         onView(withId(R.id.mapView)).perform(
-                new MoveCameraAction(mapboxMap, CameraUpdateFactory.newCameraPosition(
+                new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newCameraPosition(
                         new CameraPosition.Builder()
                                 .target(moveTarget)
                                 .zoom(moveZoom)
@@ -108,7 +105,7 @@ public class CameraMoveTest {
     }
 
     @Test
-    public void testMoveToBounds() {
+    public void testAnimateToBounds() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -120,7 +117,7 @@ public class CameraMoveTest {
         builder.include(cornerOne);
         builder.include(cornerTwo);
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.newLatLngBounds(builder.build(), 0)));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newLatLngBounds(builder.build(), 0)));
 
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera position latitude should match center bounds",
@@ -135,7 +132,7 @@ public class CameraMoveTest {
     }
 
     @Test
-    public void testMoveToMoveBy() {
+    public void testAnimateToMoveBy() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -143,7 +140,7 @@ public class CameraMoveTest {
         final LatLng moveTarget = new LatLng(2, 2);
         final PointF moveTargetPoint = mapboxMap.getProjection().toScreenLocation(moveTarget);
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.scrollBy(
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.scrollBy(
                 moveTargetPoint.x - centerPoint.x, moveTargetPoint.y - centerPoint.y)));
 
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
@@ -152,33 +149,33 @@ public class CameraMoveTest {
     }
 
     @Test
-    public void testMoveToZoomIn() {
+    public void testAnimateToZoomIn() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
         /*TODO fix zoom #6474*/
         float zoom = 1.0f;
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.zoomIn()));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.zoomIn()));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera zoom should match moved camera zoom", cameraPosition.zoom, zoom + 1, 0.0f);
     }
 
     @Test
-    public void testMoveToZoomOut() {
+    public void testAnimateToZoomOut() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
         /*TODO fix zoom #6474*/
         float zoom = 1.0f;
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.zoomOut()));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.zoomOut()));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera zoom should match moved camera zoom", cameraPosition.zoom, zoom - 1, 0.0f);
     }
 
     @Test
-    public void testMoveToZoomBy() {
+    public void testAnimateToZoomBy() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
@@ -186,20 +183,20 @@ public class CameraMoveTest {
         float zoom = 1.0f;
         final float zoomBy = 2.45f;
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.zoomBy(zoomBy)));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.zoomBy(zoomBy)));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera zoom should match moved camera zoom", cameraPosition.zoom, zoom + zoomBy, 0.0f);
     }
 
     @Test
-    public void testMoveToZoomTo() {
+    public void testAnimateToZoomTo() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
         final MapboxMap mapboxMap = rule.getActivity().getMapboxMap();
 
         /*TODO fix zoom #6474*/
         final float zoomTo = 2.45f;
 
-        onView(withId(R.id.mapView)).perform(new MoveCameraAction(mapboxMap, CameraUpdateFactory.zoomTo(zoomTo)));
+        onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.zoomTo(zoomTo)));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera zoom should match moved camera zoom", cameraPosition.zoom, zoomTo, 0.0f);
     }
@@ -209,12 +206,12 @@ public class CameraMoveTest {
         Espresso.unregisterIdlingResources(idlingResource);
     }
 
-    private class MoveCameraAction implements ViewAction {
+    private class AnimateCameraAction implements ViewAction {
 
         private MapboxMap mapboxMap;
         private CameraUpdate cameraUpdate;
 
-        MoveCameraAction(MapboxMap map, CameraUpdate update) {
+        AnimateCameraAction(MapboxMap map, CameraUpdate update) {
             mapboxMap = map;
             cameraUpdate = update;
         }
@@ -231,7 +228,9 @@ public class CameraMoveTest {
 
         @Override
         public void perform(UiController uiController, View view) {
-            mapboxMap.moveCamera(cameraUpdate);
+            mapboxMap.animateCamera(cameraUpdate);
+            uiController.loopMainThreadForAtLeast(MapboxConstants.ANIMATION_DURATION);
         }
     }
 }
+

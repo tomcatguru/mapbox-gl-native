@@ -1,5 +1,7 @@
 package com.mapbox.mapboxsdk.maps;
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
+
 /**
  * Utility class to bypass package visibility
  */
@@ -9,7 +11,23 @@ public class MapboxMapUtils {
         mapView.setBearing(direction);
     }
 
+    public static float getDirection(MapView mapView){
+        return (float) mapView.getDirection();
+    }
+
     public static void setTilt(MapView mapView, float tilt) {
         mapView.setTilt((double) tilt);
+    }
+
+    public static float getTilt(MapView mapView){
+        return (float) mapView.getTilt();
+    }
+
+    public static void setLatLng(MapView mapView, LatLng latLng){
+        mapView.setCenterCoordinate(latLng);
+    }
+
+    public static LatLng getLatLng(MapView mapView){
+        return mapView.getCenterCoordinate();
     }
 }
