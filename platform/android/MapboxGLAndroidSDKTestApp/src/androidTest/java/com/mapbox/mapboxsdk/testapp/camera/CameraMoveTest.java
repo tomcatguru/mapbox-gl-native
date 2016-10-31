@@ -226,7 +226,7 @@ public class CameraMoveTest {
 
         @Override
         public String getDescription() {
-            return "rotateAction";
+            return getClass().getSimpleName();
         }
 
         @Override

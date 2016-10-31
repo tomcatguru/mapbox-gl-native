@@ -223,7 +223,7 @@ public class CameraEaseTest {
 
         @Override
         public String getDescription() {
-            return "rotateAction";
+            return getClass().getSimpleName();
         }
 
         @Override

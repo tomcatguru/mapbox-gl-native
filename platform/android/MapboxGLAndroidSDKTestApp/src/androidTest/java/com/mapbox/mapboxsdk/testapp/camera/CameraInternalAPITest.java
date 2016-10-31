@@ -10,7 +10,7 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.MapboxMapUtils;
+import com.mapbox.mapboxsdk.maps.MapViewUtils;
 import com.mapbox.mapboxsdk.testapp.R;
 import com.mapbox.mapboxsdk.testapp.activity.camera.CameraTestActivity;
 import com.mapbox.mapboxsdk.testapp.utils.OnMapReadyIdlingResource;
@@ -29,7 +29,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests map transformations that aren't public API
+ * Tests camera transformations that aren't part of our public API
  */
 public class CameraInternalAPITest {
 
@@ -56,7 +56,7 @@ public class CameraInternalAPITest {
 
         MapView mapView = (MapView) activity.findViewById(R.id.mapView);
         onView(withId(R.id.mapView)).perform(new BearingAction(mapView));
-        assertEquals("Bearing should match", 45.1f, MapboxMapUtils.getDirection(mapView), TestConstants.BEARING_DELTA);
+        assertEquals("Bearing should match", 45.1f, MapViewUtils.getDirection(mapView), TestConstants.BEARING_DELTA);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class CameraInternalAPITest {
 
         MapView mapView = (MapView) activity.findViewById(R.id.mapView);
         onView(withId(R.id.mapView)).perform(new TiltAction(mapView));
-        assertEquals("Tilt should match", 40.0f, MapboxMapUtils.getTilt(mapView), TestConstants.TILT_DELTA);
+        assertEquals("Tilt should match", 40.0f, MapViewUtils.getTilt(mapView), TestConstants.TILT_DELTA);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class CameraInternalAPITest {
         MapView mapView = (MapView) activity.findViewById(R.id.mapView);
         onView(withId(R.id.mapView)).perform(new LatLngAction(mapView));
 
-        LatLng centerCoordinate = MapboxMapUtils.getLatLng(mapView);
+        LatLng centerCoordinate = MapViewUtils.getLatLng(mapView);
         assertEquals("Latitude should match", 1.1f, centerCoordinate.getLatitude(), TestConstants.LAT_LNG_DELTA);
         assertEquals("Longitude should match", 2.2f, centerCoordinate.getLongitude(), TestConstants.LAT_LNG_DELTA);
     }
@@ -117,7 +117,7 @@ public class CameraInternalAPITest {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MapboxMapUtils.setDirection(mapView, -45.1f);
+            MapViewUtils.setDirection(mapView, -45.1f);
         }
     }
 
@@ -141,7 +141,7 @@ public class CameraInternalAPITest {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MapboxMapUtils.setTilt(mapView, 40.0f);
+            MapViewUtils.setTilt(mapView, 40.0f);
         }
     }
 
@@ -165,7 +165,7 @@ public class CameraInternalAPITest {
 
         @Override
         public void perform(UiController uiController, View view) {
-            MapboxMapUtils.setLatLng(mapView, new LatLng(1.1, 2.2));
+            MapViewUtils.setLatLng(mapView, new LatLng(1.1, 2.2));
         }
     }
 }
