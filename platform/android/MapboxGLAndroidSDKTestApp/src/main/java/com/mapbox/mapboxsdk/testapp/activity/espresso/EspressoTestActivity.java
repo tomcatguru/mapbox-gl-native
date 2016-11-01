@@ -1,4 +1,4 @@
-package com.mapbox.mapboxsdk.testapp.activity.camera;
+package com.mapbox.mapboxsdk.testapp.activity.espresso;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +9,12 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.testapp.R;
 
 /**
- * Test activity for instrumentation test execution
+ * Base activity for instrumentation testing
  */
-public class CameraTestActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class EspressoTestActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     public MapView mapView;
-    private MapboxMap mapboxMap;
+    protected MapboxMap mapboxMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

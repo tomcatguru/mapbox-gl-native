@@ -15,7 +15,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.testapp.R;
-import com.mapbox.mapboxsdk.testapp.activity.camera.CameraTestActivity;
+import com.mapbox.mapboxsdk.testapp.activity.espresso.EspressoTestActivity;
 import com.mapbox.mapboxsdk.testapp.utils.OnMapReadyIdlingResource;
 import com.mapbox.mapboxsdk.testapp.utils.TestConstants;
 import com.mapbox.mapboxsdk.testapp.utils.ViewUtils;
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 public class CameraAnimateTest {
 
     @Rule
-    public final ActivityTestRule<CameraTestActivity> rule = new ActivityTestRule<>(CameraTestActivity.class);
+    public final ActivityTestRule<EspressoTestActivity> rule = new ActivityTestRule<>(EspressoTestActivity.class);
 
     private OnMapReadyIdlingResource idlingResource;
 
@@ -59,7 +59,8 @@ public class CameraAnimateTest {
 
         onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newLatLng(moveTarget)));
         cameraPosition = mapboxMap.getCameraPosition();
-        assertEquals("Moved camera position target should match", cameraPosition.target, moveTarget);
+        assertEquals("Moved camera position latitude should match", cameraPosition.target.getLatitude(), moveTarget.getLatitude(), TestConstants.LAT_LNG_DELTA);
+        assertEquals("Moved camera position longitude should match", cameraPosition.target.getLongitude(), moveTarget.getLongitude(), TestConstants.LAT_LNG_DELTA);
     }
 
     @Test
@@ -72,7 +73,8 @@ public class CameraAnimateTest {
 
         onView(withId(R.id.mapView)).perform(new AnimateCameraAction(mapboxMap, CameraUpdateFactory.newLatLngZoom(moveTarget, moveZoom)));
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
-        assertEquals("Moved camera position target should match", cameraPosition.target, moveTarget);
+        assertEquals("Moved camera position latitude should match", cameraPosition.target.getLatitude(), moveTarget.getLatitude(), TestConstants.LAT_LNG_DELTA);
+        assertEquals("Moved camera position longitude should match", cameraPosition.target.getLongitude(), moveTarget.getLongitude(), TestConstants.LAT_LNG_DELTA);
         assertEquals("Moved zoom should match", cameraPosition.zoom, moveZoom, 0.0f);
     }
 
@@ -99,9 +101,9 @@ public class CameraAnimateTest {
         CameraPosition cameraPosition = mapboxMap.getCameraPosition();
         assertEquals("Moved camera position latitude should match", cameraPosition.target.getLatitude(), moveTarget.getLatitude(), TestConstants.LAT_LNG_DELTA);
         assertEquals("Moved camera position longitude should match", cameraPosition.target.getLongitude(), moveTarget.getLongitude(), TestConstants.LAT_LNG_DELTA);
-        assertEquals("Moved zoom should match", cameraPosition.zoom, moveZoom, 0.0f);
-        assertEquals("Moved zoom should match", cameraPosition.tilt, moveTilt, 0.0f);
-        assertEquals("Moved bearing should match", cameraPosition.bearing, moveBearing, 0.0f);
+        assertEquals("Moved zoom should match", cameraPosition.zoom, moveZoom, TestConstants.ZOOM_DELTA);
+        assertEquals("Moved zoom should match", cameraPosition.tilt, moveTilt, TestConstants.TILT_DELTA);
+        assertEquals("Moved bearing should match", cameraPosition.bearing, moveBearing, TestConstants.BEARING_DELTA);
     }
 
     @Test

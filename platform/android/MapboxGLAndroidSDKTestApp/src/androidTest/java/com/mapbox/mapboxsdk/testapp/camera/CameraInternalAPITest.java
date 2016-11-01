@@ -12,7 +12,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapViewUtils;
 import com.mapbox.mapboxsdk.testapp.R;
-import com.mapbox.mapboxsdk.testapp.activity.camera.CameraTestActivity;
+import com.mapbox.mapboxsdk.testapp.activity.espresso.EspressoTestActivity;
 import com.mapbox.mapboxsdk.testapp.utils.OnMapReadyIdlingResource;
 import com.mapbox.mapboxsdk.testapp.utils.TestConstants;
 import com.mapbox.mapboxsdk.testapp.utils.ViewUtils;
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 public class CameraInternalAPITest {
 
     @Rule
-    public final ActivityTestRule<CameraTestActivity> rule = new ActivityTestRule<>(CameraTestActivity.class);
+    public final ActivityTestRule<EspressoTestActivity> rule = new ActivityTestRule<>(EspressoTestActivity.class);
 
     private OnMapReadyIdlingResource idlingResource;
 
@@ -47,7 +47,7 @@ public class CameraInternalAPITest {
     @Test
     public void testBearing() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
-        CameraTestActivity activity = rule.getActivity();
+        EspressoTestActivity activity = rule.getActivity();
         MapboxMap mapboxMap = activity.getMapboxMap();
 
         CameraPosition initialPosition = new CameraPosition.Builder().target(new LatLng()).zoom(1).bearing(0).tilt(0).build();
@@ -62,7 +62,7 @@ public class CameraInternalAPITest {
     @Test
     public void testTilt() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
-        CameraTestActivity activity = rule.getActivity();
+        EspressoTestActivity activity = rule.getActivity();
         MapboxMap mapboxMap = activity.getMapboxMap();
 
         CameraPosition initialPosition = new CameraPosition.Builder().target(new LatLng()).zoom(1).bearing(0).tilt(0).build();
@@ -77,7 +77,7 @@ public class CameraInternalAPITest {
     @Test
     public void testLatLng() {
         ViewUtils.checkViewIsDisplayed(R.id.mapView);
-        CameraTestActivity activity = rule.getActivity();
+        EspressoTestActivity activity = rule.getActivity();
         MapboxMap mapboxMap = activity.getMapboxMap();
 
         CameraPosition initialPosition = new CameraPosition.Builder().target(new LatLng()).zoom(1).bearing(0).tilt(0).build();

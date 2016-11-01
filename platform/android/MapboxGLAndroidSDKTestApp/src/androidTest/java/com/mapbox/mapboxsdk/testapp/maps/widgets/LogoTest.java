@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.testapp.R;
-import com.mapbox.mapboxsdk.testapp.activity.camera.CameraTestActivity;
+import com.mapbox.mapboxsdk.testapp.activity.espresso.EspressoTestActivity;
 import com.mapbox.mapboxsdk.testapp.utils.OnMapReadyIdlingResource;
 import com.mapbox.mapboxsdk.testapp.utils.ViewUtils;
 
@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.not;
 public class LogoTest {
 
     @Rule
-    public final ActivityTestRule<CameraTestActivity> rule = new ActivityTestRule<>(CameraTestActivity.class);
+    public final ActivityTestRule<EspressoTestActivity> rule = new ActivityTestRule<>(EspressoTestActivity.class);
 
     private OnMapReadyIdlingResource idlingResource;
 
