@@ -49,8 +49,8 @@ touch package.json
 
 # Install and set up to load a more recent version of mesa
 mapbox_time "install_mesa" \
-mason install mesa 11.2.2
-export LD_LIBRARY_PATH="`mason prefix mesa 11.2.2`/lib:${LD_LIBRARY_PATH:-}"
+mason install mesa 12.0.3
+export LD_LIBRARY_PATH="`mason prefix mesa 12.0.3`/lib:${LD_LIBRARY_PATH:-}"
 
 # Install and set up to load awscli
 pip install --user awscli
