@@ -6,7 +6,7 @@ addons_shortcuts:
   addons_clang35: &clang35
     apt:
       sources:  [ 'ubuntu-toolchain-r-test', 'george-edison55-precise-backports' ]
-      packages: [ 'clang-3.5', 'libstdc++-4.9-dev', 'libstdc++6', 'libllvm3.4', 'cmake', 'cmake-data',
+      packages: [ 'clang-3.5', 'libstdc++-4.9-dev', 'libstdc++6', 'libllvm3.4', 'libllvm3.8v4', 'cmake', 'cmake-data',
                   'mesa-utils', 'libxi-dev', 'libglu1-mesa-dev', 'x11proto-randr-dev', 'x11proto-xext-dev', 'libxrandr-dev',
                   'x11proto-xf86vidmode-dev', 'libxxf86vm-dev', 'libxcursor-dev', 'libxinerama-dev' ]
   addons_gcc5: &gcc5
