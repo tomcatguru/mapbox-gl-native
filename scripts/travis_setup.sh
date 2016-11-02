@@ -51,6 +51,7 @@ touch package.json
 mapbox_time "install_mesa" \
 mason install mesa 12.0.3
 export LD_LIBRARY_PATH="`mason prefix mesa 12.0.3`/lib:${LD_LIBRARY_PATH:-}"
+ldd `mason prefix mesa 12.0.3`/lib/libGL.so.1
 
 # Install and set up to load awscli
 pip install --user awscli
