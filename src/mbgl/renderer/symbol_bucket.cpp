@@ -42,16 +42,16 @@ void SymbolBucket::render(Painter& painter,
 }
 
 bool SymbolBucket::hasData() const {
-    assert(false); // Should be calling SymbolLayout::hasSymbolInstances() instead.
+    assert(false); // Should be calling SymbolLayout::has{Text,Icon,CollisonBox}Data() instead.
     return false;
 }
 
 bool SymbolBucket::hasTextData() const {
-    return !text.segments.empty();
+    return text.segments.front().vertexLength;
 }
 
 bool SymbolBucket::hasIconData() const {
-    return !icon.segments.empty();
+    return icon.segments.front().vertexLength;
 }
 
 bool SymbolBucket::hasCollisionBoxData() const {

@@ -112,7 +112,7 @@ void FillBucket::render(Painter& painter,
 }
 
 bool FillBucket::hasData() const {
-    return !triangleSegments.empty() || !lineSegments.empty();
+    return triangleSegments.front().vertexLength || lineSegments.front().vertexLength;
 }
 
 } // namespace mbgl

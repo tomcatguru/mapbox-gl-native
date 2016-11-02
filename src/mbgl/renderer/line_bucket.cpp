@@ -445,7 +445,7 @@ void LineBucket::render(Painter& painter,
 }
 
 bool LineBucket::hasData() const {
-    return !segments.empty();
+    return segments.front().vertexLength;
 }
 
 } // namespace mbgl

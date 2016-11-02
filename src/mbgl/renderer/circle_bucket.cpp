@@ -27,7 +27,7 @@ void CircleBucket::render(Painter& painter,
 }
 
 bool CircleBucket::hasData() const {
-    return !segments.empty();
+    return segments.front().vertexLength;
 }
 
 void CircleBucket::addGeometry(const GeometryCollection& geometryCollection) {
